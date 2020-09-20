@@ -21,6 +21,7 @@ def scrape_info():
     # visit Mars Nasa News site
     mars_url = 'http://mars.nasa.gov/news/'
     browser.visit(mars_url) 
+
     # gives it one second...can change to what you need for site to load
     time.sleep(1)
 
@@ -36,7 +37,7 @@ def scrape_info():
 
     # add data to our mars data dict
     mars_data["news_title"] = news_title
-    news_p["news_p"] = news_p
+    mars_data["news_p"] = news_p
 
     # visit the URL from the Jet Propulsion Laboratory to scrape
     jet_url = 'http://jpl.nasa.gov/spaceimages/?search=&category=Mars/'
@@ -75,26 +76,75 @@ def scrape_info():
     # visit USGS Astrogeology site 
     usgs_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(usgs_url)
-
+    astro_url = 'https://astrogeology.usgs.gov'
     time.sleep(4)
 
-     
+    # grab the hemisphere titles and store as variables
+    html = browser.html
+    soup = bs(html, "html.parser")
+    first_title = soup.find('h3').text
+    second_title = soup.find('h3')[1].text
+    third_title = soup.find('h3')[2].text
+    fourth_title = soup.find('h3')[3].text
 
+    # use splinter to click the links/buttons to bring up the full resolution image of cerberus 
+    first_results = browser.click_link_by_partial_text("Cerberus")
+    results = browser.find_by_id("wide-image-toggle").first.click()
 
+    # scrape the new browser into soup and use soup to find the full resolution image
+    # save image of url to variable 'img_url' + then to variable 'cereberus_image_url' for full path of image
+    html = browser.html
+    soup = bs(html, "html.parser")
+    img_url = soup.find("img", class_="wide-image")["src"]
+    cereberus_image_url = astro_url + img_url
 
+    # go back to main page
+    browser.visit(usgs_url)
 
+    # use splinter to click the links/buttons to bring up the full resolution image of shiaparelli 
+    second_results = browser.click_link_by_partial_text("Schiaparelli")
+    results = browser.find_by_id("wide-image-toggle").first.click()
 
+    # scrape the new browser into soup and use soup to find the full resolution Schiaparelli Image
+    # save image of url to variable 'img_url' + then to variable 'schiap_image_url' for full path of image
+    html = browser.html
+    soup = bs(html, "html.parser")
+    img_url = soup.find("img", class_="wide-image")["src"]
+    schiap_image_url = astro_url + img_url
 
+    # go back to main page
+    browser.visit(usgs_url)
 
+    # use splinter to click the links/buttons to bring up the full resolution image of syrtis 
+    third_results = browser.click_link_by_partial_text("Syrtis")
+    results = browser.find_by_id("wide-image-toggle").first.click()
 
+    # scrape the new browser into soup and use soup to find the full resolution Syrtis Image
+    # save image of url to variable 'img_url' + then to variable 'syrtis_image_url' for full path of image
+    html = browser.html
+    soup = bs(html, "html.parser")
+    img_url = soup.find("img", class_="wide-image")["src"]
+    syrtis_image_url = astro_url + img_url
 
+    # go back to main page
+    browser.visit(usgs_url)
 
-    # Store data in a dictionary
-    mars_data = {
-        "news_title": news_title,
-        "news_p": news_p,
-        "featured_image_url": featured_image_url
+    # use splinter to click the links/buttons to bring up the full resolution image of valles
+    fourth_results = browser.click_link_by_partial_text("Valles")
+    results = browser.find_by_id("wide-image-toggle").first.click()
+
+    # scrape the new browser into soup and use soup to find the full resolution Valles Image
+    # save image of url to variable 'img_url' + then to variable 'valles_image_url' for full path of image
+    html = browser.html
+    soup = bs(html, "html.parser")
+    img_url = soup.find("img", class_="wide-image")["src"]
+    valles_image_url = astro_url + img_url
+
+    # store mars hemisphere data in a dictionary using 'img_url' and 'title' as keys
+    mars_hemisphere = {
+
     }
+
 
     # BONUS: Find the src for the sloth image (need specific knowledge of page to grab that image)
     relative_image_path = soup.find_all('img')[2]["src"]
@@ -111,4 +161,4 @@ def scrape_info():
     browser.quit()
 
     # Return results
-    return costa_data
+    return mars_data
