@@ -12,7 +12,7 @@ def init_browser():
     return Browser("chrome", **executable_path, headless=False)
 
 
-def scrape_info():
+def scrape():
     browser = init_browser()
 
     # create mars data dict that we can insert into mongo
@@ -47,6 +47,8 @@ def scrape_info():
 
     # use splinter to click the button to bring up the full resolution image of the Featured Image
     results = browser.find_by_id('full_image').first.click()
+
+    time.sleep(3)
 
     # scrape the new browser into soup and use soup to find the full resolution Featured Image
     # save image of url to variable 'img_url' + then to variable 'featured_image_url' for full path of image
@@ -87,10 +89,13 @@ def scrape_info():
     third_title = soup.find('h3')[2].text
     fourth_title = soup.find('h3')[3].text
 
+    # need to add the data to a dictionary before changing the website page???
+
     # use splinter to click the links/buttons to bring up the full resolution image of cerberus 
     first_results = browser.click_link_by_partial_text("Cerberus")
     results = browser.find_by_id("wide-image-toggle").first.click()
 
+    time.sleep(3)
     # scrape the new browser into soup and use soup to find the full resolution image
     # save image of url to variable 'img_url' + then to variable 'cereberus_image_url' for full path of image
     html = browser.html
