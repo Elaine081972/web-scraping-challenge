@@ -4,10 +4,10 @@ This assignment "Mission to Mars" builds a web application. It combines the chal
 
 1. A Jupyter Notebook file called "mission_to_mars.ipynb is used to complete the initial scraping and analysis.
 BeautifulSoup, Pandas and Requests/Splinter are used for this.
--- NASA Mars News is scraped for the latest Title and Paragraph Text
--- Jet Propulsion Laboratory site is scraped for the featured image
--- Space-Facts site is scraped for mars facts
--- USGS Astrogeology site is scraped for the four hemisphere titles and images of mars
+--NASA Mars News is scraped for the latest Title and Paragraph Text
+--Jet Propulsion Laboratory site is scraped for the featured image
+--Space-Facts site is scraped for mars facts
+--USGS Astrogeology site is scraped for the four hemisphere titles and images of mars
 
 2. The Jupyter Notebook code is then consolidated into a Python script called scrape_mars.py. A function called scrape executes all of the scraping code and returned into one Python dictionary containing all the data.
 
