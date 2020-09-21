@@ -8,9 +8,9 @@ def init_browser():
     # @NOTE: Replace the path with your actual path to the chromedriver 
      #path for MAC 
     executable_path = {"executable_path": "/usr/local/bin/chromedriver"}
+    # path for windows - need to complete path!!!
     #executable_path = {"executable_path": "C:/Users/Heather Bree/chromedriver_win32/chromedriver"}
     return Browser("chrome", **executable_path, headless=False)
-
 
 def scrape():
     browser = init_browser()
@@ -79,90 +79,96 @@ def scrape():
     usgs_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(usgs_url)
     astro_url = 'https://astrogeology.usgs.gov'
-    time.sleep(4)
+    time.sleep(5)
 
-    # grab the hemisphere titles and store as variables
-    html = browser.html
-    soup = bs(html, "html.parser")
-    first_title = soup.find('h3').text
-    second_title = soup.find('h3')[1].text
-    third_title = soup.find('h3')[2].text
-    fourth_title = soup.find('h3')[3].text
-
-    # need to add the data to a dictionary before changing the website page???
-
-    # use splinter to click the links/buttons to bring up the full resolution image of cerberus 
+    # create hemisphere list of dictionaries
+    mars_dict_list = []
+    
+    # use splinter to click the links/buttons to bring up the title & full resolution image of cerberus 
     first_results = browser.click_link_by_partial_text("Cerberus")
-    results = browser.find_by_id("wide-image-toggle").first.click()
-
-    time.sleep(3)
-    # scrape the new browser into soup and use soup to find the full resolution image
+    
+    time.sleep(2)
+    # scrape the new browser into soup and use soup to find the title and full resolution image
     # save image of url to variable 'img_url' + then to variable 'cereberus_image_url' for full path of image
+    # save image url string and title to a dictionary and add to list
     html = browser.html
     soup = bs(html, "html.parser")
+    first_title = soup.body.find('h2', class_="title").text
     img_url = soup.find("img", class_="wide-image")["src"]
     cereberus_image_url = astro_url + img_url
+    dictionary = {}
+    dictionary["title"] = first_title
+    dictionary["img_url"] = cereberus_image_url
+    mars_dict_list.append(dictionary)
 
     # go back to main page
     browser.visit(usgs_url)
 
     # use splinter to click the links/buttons to bring up the full resolution image of shiaparelli 
     second_results = browser.click_link_by_partial_text("Schiaparelli")
-    results = browser.find_by_id("wide-image-toggle").first.click()
 
-    # scrape the new browser into soup and use soup to find the full resolution Schiaparelli Image
+    time.sleep(2)
+   
+    # scrape the new browser into soup and use soup to find the title and full resolution Schiaparelli Image
     # save image of url to variable 'img_url' + then to variable 'schiap_image_url' for full path of image
+    # save image url string and title to a dictionary and add to list
     html = browser.html
     soup = bs(html, "html.parser")
+    second_title = soup.body.find('h2', class_="title").text
     img_url = soup.find("img", class_="wide-image")["src"]
     schiap_image_url = astro_url + img_url
+    dictionary = {}
+    dictionary["title"] = second_title
+    dictionary["img_url"] = schiap_image_url
+    mars_dict_list.append(dictionary)
 
     # go back to main page
     browser.visit(usgs_url)
 
     # use splinter to click the links/buttons to bring up the full resolution image of syrtis 
     third_results = browser.click_link_by_partial_text("Syrtis")
-    results = browser.find_by_id("wide-image-toggle").first.click()
 
-    # scrape the new browser into soup and use soup to find the full resolution Syrtis Image
+    time.sleep(2)
+
+    # scrape the new browser into soup and use soup to find the title & full resolution Syrtis Image
     # save image of url to variable 'img_url' + then to variable 'syrtis_image_url' for full path of image
+    # save image url string and title to a dictionary and add to list
     html = browser.html
     soup = bs(html, "html.parser")
+    third_title = soup.body.find('h2', class_="title").text
     img_url = soup.find("img", class_="wide-image")["src"]
     syrtis_image_url = astro_url + img_url
+    dictionary = {}
+    dictionary["title"] = third_title
+    dictionary["img_url"] = syrtis_image_url
+    mars_dict_list.append(dictionary)
 
     # go back to main page
     browser.visit(usgs_url)
 
     # use splinter to click the links/buttons to bring up the full resolution image of valles
     fourth_results = browser.click_link_by_partial_text("Valles")
-    results = browser.find_by_id("wide-image-toggle").first.click()
 
-    # scrape the new browser into soup and use soup to find the full resolution Valles Image
+    time.sleep(2)
+
+    # scrape the new browser into soup and use soup to find the title and full resolution Valles Image
     # save image of url to variable 'img_url' + then to variable 'valles_image_url' for full path of image
+    # save image url string and title to a dictionary and add to list
     html = browser.html
     soup = bs(html, "html.parser")
+    fourth_title = soup.body.find('h2', class_="title").text
     img_url = soup.find("img", class_="wide-image")["src"]
     valles_image_url = astro_url + img_url
+    dictionary = {}
+    dictionary["title"] = fourth_title
+    dictionary["img_url"] = valles_image_url
+    mars_dict_list.append(dictionary)
 
-    # store mars hemisphere data in a dictionary using 'img_url' and 'title' as keys
-    mars_hemisphere = {
+    # add list of dictionaries to mars_data
+    mars_data["mars_dict_list"] = mars_dict_list
 
-    }
-
-
-    # BONUS: Find the src for the sloth image (need specific knowledge of page to grab that image)
-    relative_image_path = soup.find_all('img')[2]["src"]
-    sloth_img = url + relative_image_path
-
-    # Store data in a dictionary
-    costa_data = {
-        "sloth_img": sloth_img,
-        "min_temp": min_temp,
-        "max_temp": max_temp
-    }
-
-    # Close the browser after scraping (splinter is finding it for us!! to close it)
+    
+    # Close the browser after scraping 
     browser.quit()
 
     # Return results
