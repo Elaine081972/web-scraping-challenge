@@ -20,7 +20,7 @@ The return value is stored in mongo as a Python dictionary. A root route / is cr
 Notes for running web application:
 
 - be sure Pymongo is installed in the environment
-- executable path - make sure the necessary path is enabled depending on MAC or Windows user status
+- executable path - make sure the necessary path to chromedriver is enabled depending on MAC or Windows user status in the scrape_mars.py file 
 - a mongo database must be started and running successfully
 - run the app.py file and a localhost port open for the HTML to display 
 
