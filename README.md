@@ -10,7 +10,7 @@ BeautifulSoup, Pandas and Requests/Splinter are used for this:
 - Space-Facts site is scraped for mars facts
 - USGS Astrogeology site is scraped for the four hemisphere titles and images of mars
 
-2. The Jupyter Notebook code is then consolidated into a Python script called scrape_mars.py. A function called scrape executes all of the scraping code and returned into one Python dictionary containing all the data.
+2. The Jupyter Notebook code is then consolidated into a Python script called scrape_mars.py. A function called scrape executes all of the scraping code and is returned into one Python dictionary containing all the data.
 
 3. A flask app.py file creates the route /scrape to import the scrape_mars.py script and call the scrape function.
 The return value is stored in mongo as a Python dictionary. A root route / is created that queries the Mongo database and passes the data into an HTML template to display the data.
@@ -20,5 +20,6 @@ The return value is stored in mongo as a Python dictionary. A root route / is cr
 Notes for running web application:
 
 - executable path - make sure the necessary path is enabled depending on MAC or Windows user status
-- a mongo database must be started and running successfully 
+- a mongo database must be started and running successfully
+- run the app.py file and a localhost port open for the HTML to display 
 
