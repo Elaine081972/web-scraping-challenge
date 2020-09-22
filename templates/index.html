@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mars</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 
 <body>
@@ -15,29 +15,44 @@
       <h1>Mission to Mars</h1>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
+    <div class="row text-center">
+      <div class="column-med-12">
     {% if mars %}
-    <h2>Featured Image</h2>
-    <img src="{{ mars.featured_image_url }}" alt="Space_image">
-    <h2>Latest Mars News</h2>
-    <h3>{{ mars.news_title }}</h3>
-    <p>{{ mars.news_p }}</p>
-    <h3>Mars Planet Profile</h3>
-    <p>{{ mars.mars_facts|safe }}</p>
-    <h2>Mars Hemisphere Images</h2>
-    <h3>{{ mars.mars_dict_list[0]["title"] }}</h3>
-    <img src="{{ mars.mars_dict_list[0]["img_url"] }}" alt="Mars_hemisphere_Cerberus">
-    <h3>{{ mars.mars_dict_list[1]["title"] }}</h3>
-    <img src="{{ mars.mars_dict_list[1]["img_url"] }}" alt="Mars_hemisphere_Schiaparelli">
-    <h3>{{ mars.mars_dict_list[2]["title"] }}</h3>
-    <img src="{{ mars.mars_dict_list[2]["img_url"] }}" alt="Mars_hemisphere_Syrtis">
-    <h3>{{ mars.mars_dict_list[3]["title"] }}</h3>
-    <img src="{{ mars.mars_dict_list[3]["img_url"] }}" alt="Mars_hemisphere_Valles">
-
-
-
+        <h2>Featured Image</h2>
+        <img src="{{ mars.featured_image_url }}" alt="Space_image">
+        <h2>Latest Mars News</h2>
+        <h3>{{ mars.news_title }}</h3>
+        <p>{{ mars.news_p }}</p>
+        <h3>Mars Planet Profile</h3>
+        <p class="center">{{ mars.mars_facts|safe }}</p>
+      </div>
+    </div>
+      <div class="row"><h2 style="text-center">Mars Hemisphere Images</h2></div>
+        <div class="row">
+        <div class="column-3">
+          <h3>{{ mars.mars_dict_list[0]["title"] }}</h3>
+            <img src="{{ mars.mars_dict_list[0]["img_url"] }}" class="img-fluid" alt="Mars_hemisphere_Cerberus">
+          <h3>{{ mars.mars_dict_list[1]["title"] }}</h3>      
+            <img src="{{ mars.mars_dict_list[1]["img_url"] }}" class="img-fluid" alt="Mars_hemisphere_Schiaparelli">
+        </div>
+        <div class="column-3">
+          <h3>{{ mars.mars_dict_list[2]["title"] }}</h3>
+            <img src="{{ mars.mars_dict_list[2]["img_url"] }}" class="img-fluid" alt="Mars_hemisphere_Syrtis">
+          <h3>{{ mars.mars_dict_list[3]["title"] }}</h3>
+            <img src="{{ mars.mars_dict_list[3]["img_url"] }}" class="img-fluid" alt="Mars_hemisphere_Valles">
+        </div>
+       </div>
+    </Div>             
+    </div>
     {% endif %}
   </div>
-  </div>
-</body>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    
+  
+  </body>
 
 </html>
